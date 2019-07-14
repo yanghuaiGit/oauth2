@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/auth2resource"
+                        userId="root"
+                        password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.example.oahth2resourse.model"
+                            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.example.oahth2resourse.mapper"
+                         targetProject="./src/main/resources/mapper">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.example.oahth2resourse.mapper"
+                             targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--        <table tableName="t_coffee" domainObjectName="Coffee" >-->
+        <!--            <generatedKey column="id" sqlStatement="CALL IDENTITY()" identity="true" />-->
+        <!--            <columnOverride column="price" javaType="org.joda.money.Money" jdbcType="BIGINT"-->
+        <!--                            typeHandler="geektime.spring.data.mybatis.handler.MoneyTypeHandler"/>-->
+        <!--        </table>-->
+        <!--        <table tableName="clientdetails" domainObjectName="ClientDetails"></table>-->
+        <!--        <table tableName="oauth_access_token" domainObjectName="OauthAccessToken"></table>-->
+        <!--        <table tableName="oauth_approvals" domainObjectName="OauthApprovals"></table>-->
+        <!--        <table tableName="oauth_client_details" domainObjectName="OauthClientDetails"></table>-->
+        <!--        <table tableName="oauth_client_token" domainObjectName="OauthClientToken"></table>-->
+        <!--        <table tableName="oauth_code" domainObjectName="OauthCode"></table>-->
+        <!--        <table tableName="oauth_refresh_token" domainObjectName="OauthRefreshToken"></table>-->
+        <!--        <table tableName="sys_permission" domainObjectName="SysPermission"></table>-->
+        <!--        <table tableName="sys_permission_role" domainObjectName="SysPermissionRole"></table>-->
+        <!--        <table tableName="sys_role" domainObjectName="SysRole"></table>-->
+        <!--        <table tableName="sys_role_user" domainObjectName="SysRoleUser"></table>-->
+        <!--        <table tableName="sys_role_user" domainObjectName="SysRoleUser"></table>-->
+        <table tableName="content" domainObjectName="Content"></table>
+
+
+    </context>
+</generatorConfiguration>
