@@ -75,6 +75,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients();
+        //访问/oauth/check_token 需要client验证 主要是为了避免资源服务器通过remoteservice解析accesstoken时，访问/oauth/check_token会提示没有权限
         security.tokenKeyAccess("isAuthenticated()");
     }
 
