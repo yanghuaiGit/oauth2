@@ -1,5 +1,9 @@
 package com.example.server2.config;
 
+import com.example.server2.constant.FromLoginConstant;
+import com.example.server2.handler.MyAuthenticationFailHandler;
+import com.example.server2.handler.MyAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -21,6 +25,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenticationFailHandler myAuthenticationFailHandler;
 
     /**
      * 创建一个加密算法
@@ -98,15 +107,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 ////                .requiresChannel()
 ////                .antMatchers("/https/**").requiresSecure();//请求必须是HTTPS
 
-        http.requestMatchers()
-                .antMatchers("/login", "/oauth/**")
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
+        http.formLogin().loginPage("http://localhost:8080/#/login")
+                .loginProcessingUrl("/auth/authorize")
+                .successHandler(myAuthenticationSuccessHandler).failureHandler(myAuthenticationFailHandler)
+                .and().authorizeRequests()
+
+                .antMatchers("/login", "/oauth/**", "/auth/authorize","http://localhost:8080/#/login")
                 .permitAll()
+                .antMatchers("/api/**").authenticated()
                 .and().csrf().disable();
     }
 }

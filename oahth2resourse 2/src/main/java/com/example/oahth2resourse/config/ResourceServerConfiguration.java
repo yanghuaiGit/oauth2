@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 
 /**
  * @author lucky_yh
@@ -21,16 +22,10 @@ import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 //@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-    private final RemoteTokenServices remoteTokenService;
-
-    @Autowired
-    public ResourceServerConfiguration(RemoteTokenServices remoteTokenService) {
-        this.remoteTokenService = remoteTokenService;
-    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.tokenServices(remoteTokenService);
+        resources.tokenServices(tokenServices());
     }
 
     @Override
@@ -56,15 +51,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     }
 
 
-//    @Bean
-//    public ResourceServerTokenServices tokenServices() {
-//        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
-//        remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:8082/oauth/check_token");
-//        remoteTokenServices.setClientId("client");
-//        remoteTokenServices.setClientSecret("secret");
-//        remoteTokenServices.setAccessTokenConverter(accessTokenConverter());
-//        return remoteTokenServices;
-//    }
+    @Bean
+    public ResourceServerTokenServices tokenServices() {
+        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
+        remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:8082/oauth/check_token");
+        remoteTokenServices.setClientId("123");
+        remoteTokenServices.setClientSecret("123");
+        remoteTokenServices.setAccessTokenConverter(accessTokenConverter());
+        return remoteTokenServices;
+    }
 
     @Bean
     public AccessTokenConverter accessTokenConverter() {

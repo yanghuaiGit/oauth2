@@ -82,8 +82,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).authorizationCodeServices(authorizationCodeServices());
-        //这是授权页面
-        //        .pathMapping("/oauth/confirm_access", "/token/confirm_access")
+//        //这是授权页面
+//                .pathMapping("/oauth/confirm_access", "/token/confirm_access");
     }
 
 
